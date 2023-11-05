@@ -167,7 +167,6 @@ public class MapPainting extends JavaPlugin {
             //this.create.add("normal", new NormalSubCommand());
             //this.create.add("wrap", new WrapSubCommand());
             //this.create.add("clone", new CloneSubCommand());
-            //this.create.add("script", new ScriptSubCommand());
             //this.control.add("tap", new TapControlCommand());
             //this.control.add("wrap", new WrapControlCommand());
             //this.control.add("debug", new ScriptDebugCommand());

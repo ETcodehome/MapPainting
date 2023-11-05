@@ -6,11 +6,6 @@ Players buy and mix different coloured paints, then use those paints on special 
 The plugin is currently being updated from a local branch that has been in use for a number of years back into alignment with the source branch. 
 I would recommend waiting for a formal release rather than using it in its current state.
 
-# Branch Philosophy
-Produce a Minecraft plugin for painting on maps inside the game.
-Do what it does well and remove feature creep that is distracting from the plugins core promise.
-In line with this, a lot of features that distracted from map painting have been stripped from this branch.
-
 # Configuration
 Config.yml in MapPainting plugin folder. Values fairly obvious.  
 
@@ -54,3 +49,11 @@ In line with the original bukkit page for the plugin, the plugin builds and all 
 https://www.spigotmc.org/resources/map-painting-scripting-api.19823/
 ![image](https://github.com/ETcodehome/MapPainting/assets/16591000/f24cc599-d91f-42c2-9a86-d802747ef115)
 For more information see https://www.gnu.org/licenses/gpl-3.0.en.html
+
+# Fork Philosophy
+Produce a Minecraft plugin for painting on maps inside the game.
+Do what it does well and remove feature creep that is distracting from the plugins core promise.
+In line with this, a lot of features that distracted from map painting have been stripped from this branch.
+
+# To Build
+Add the project to eclipse, update external library refs and javadoc locations to target versions. Export to jar.

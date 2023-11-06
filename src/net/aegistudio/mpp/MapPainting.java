@@ -15,6 +15,7 @@ import net.aegistudio.mpp.factory.NormalSubCommand;
 import net.aegistudio.mpp.foreign.PluginCanvasManager;
 import net.aegistudio.mpp.foreign.PluginCommandManager;
 import net.aegistudio.mpp.paint.PaintManager;
+import net.aegistudio.mpp.paint.GivePaintBottleCommand;
 import net.aegistudio.mpp.paint.MixPaintBottleCommand;
 import net.aegistudio.mpp.tool.*;
 import net.milkbowl.vault.economy.Economy;
@@ -154,6 +155,7 @@ public class MapPainting extends JavaPlugin {
             //this.control = new ControlCommand();
             //this.command.add("control", this.control); // dont need control do we?
             this.m_commandHandler.add("buy", new MixPaintBottleCommand());
+            this.m_commandHandler.add("give", new GivePaintBottleCommand());
             //this.command.add("purge", new PurgeCanvasCommand());
             
             // changes to match preferred syntax

@@ -6,6 +6,7 @@ import net.aegistudio.mpp.canvas.*;
 import net.aegistudio.mpp.color.ColorManager;
 import net.aegistudio.mpp.color.ExpertColorParser;
 import net.aegistudio.mpp.color.RgbColorParser;
+import net.aegistudio.mpp.common.Utils;
 import net.aegistudio.mpp.control.ControlCommand;
 import net.aegistudio.mpp.export.AssetService;
 import net.aegistudio.mpp.export.PluginCanvasService;
@@ -57,7 +58,9 @@ public class MapPainting extends JavaPlugin {
     
     public ConfigurationSection m_configSection;
     public Properties defaultLocale;
-
+    
+    // declare utilities
+    public Utils utils;
     
     public static final ArrayList<String> m_localeStrings = Lists.newArrayList("en");;
     
@@ -139,6 +142,8 @@ public class MapPainting extends JavaPlugin {
         	
         	// register command event handlers
             FileConfiguration config = this.getConfig();
+            
+            this.utils = new Utils(this);
             
             this.m_commandHandler = new CompositeHandle();
             this.m_commandCreateHandler = new CreateCanvasCommand(); // needed to load strings

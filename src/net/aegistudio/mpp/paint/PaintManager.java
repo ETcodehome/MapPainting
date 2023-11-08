@@ -214,7 +214,7 @@ public class PaintManager implements Module {
     /**
      * Initializes the paint bottle recipes
      */
-    public void InitializePaintBottleRecipe() throws Exception {
+    public void InitializePaintBottleRecipe() {
     	paintBottleRecipe = new PaintBottleRecipe();
         paintBottleRecipe.load(plugin, config);
     }
@@ -312,7 +312,7 @@ public class PaintManager implements Module {
     /**
      * Defines the names of colors of paint.
      */
-    public void DefineColorNames() throws Exception {
+    public void DefineColorNames() {
     	
     	// actually create the new map
     	colorNameMap = new HashMap <Color, String> ();

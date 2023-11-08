@@ -1,32 +1,25 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- * org.bukkit.Material
- * org.bukkit.command.CommandSender
- * org.bukkit.configuration.ConfigurationSection
- * org.bukkit.entity.Player
- * org.bukkit.inventory.ItemStack
- * org.bukkit.inventory.PlayerInventory
- */
 package net.aegistudio.mpp.paint;
 
-import net.aegistudio.mpp.ActualHandle;
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.color.PseudoColor;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
-
-import org.bukkit.Material;
+import net.aegistudio.mpp.CommandHandle;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
+import java.awt.Color;
 
-import java.awt.*;
 
-public class MixPaintBottleCommand extends ActualHandle {
+/**
+ * Handler responsible for letting players mix dyes by command to yield a specific color paint bottle. 
+ * Uses consumables to produce the resultant item.
+ */
+public class MixPaintBottleCommand implements CommandHandle {
+	
+    public static final String PERMISSION_NODE					= "mpp.command.mix.paint.bottle";
+	
 	public static final String ONLY_PLAYER = "onlyPlayer";
 	public String onlyPlayer;
 	public static final String NO_PIGMENT_PERMISSION = "noPermission";
@@ -41,7 +34,10 @@ public class MixPaintBottleCommand extends ActualHandle {
 	public String needInv;
 	public static final String GAVE_PIGMENT = "gavePigment $name";
 	public String gavePigment;
+	
+	public String description;
 
+	
 	public MixPaintBottleCommand() {
 		this.description = "@pigment.description";
 		this.onlyPlayer = "@pigment.onlyPlayer";
@@ -53,132 +49,78 @@ public class MixPaintBottleCommand extends ActualHandle {
 		this.gavePigment = "@pigment.gavePigment $name";
 	}
 
+	
+	/**
+     * Run when initially loaded, checks localization for all strings involved.
+     */
 	@Override
-	public void load(MapPainting painting, ConfigurationSection section) throws Exception {
-		super.load(painting, section);
-		this.onlyPlayer = painting.getLocale(ONLY_PLAYER, this.onlyPlayer, section);
-		this.noPigmentPermission = painting.getLocale(NO_PIGMENT_PERMISSION, this.noPigmentPermission, section);
-		this.invalidFormat = painting.getLocale(INVALID_FORMAT, this.invalidFormat, section);
-		this.charged = painting.getLocale(CHARGED, this.charged, section);
+	public void load(MapPainting plugin, ConfigurationSection section) throws Exception {
+		this.onlyPlayer = plugin.getLocale(ONLY_PLAYER, this.onlyPlayer, section);
+		this.noPigmentPermission = plugin.getLocale(NO_PIGMENT_PERMISSION, this.noPigmentPermission, section);
+		this.invalidFormat = plugin.getLocale(INVALID_FORMAT, this.invalidFormat, section);
+		this.charged = plugin.getLocale(CHARGED, this.charged, section);
 	}
 
+	
 	@Override
-	public boolean handle(MapPainting plugin, String prefix, CommandSender sender, String[] arguments) {
+	public boolean handle(MapPainting plugin, String prefix, CommandSender sender, String[] args) {
 		
-		Boolean basic = true;
-		
-		// make sure this is an actual player sending the command, reject otherwise
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(this.onlyPlayer);
-			return true;
+		if (plugin.utils.senderIsNonPlayer(sender)) { 
+			return false;
 		}
 		
-		// make sure sender has pigment perms
-		if (!sender.hasPermission("mpp.pigment")) {
-			sender.sendMessage(noPigmentPermission);
-			return true;
+		if (plugin.utils.permissionCheckFails(PERMISSION_NODE, sender)) {
+			return false;
 		}
 		
 		// make sure the command has arguments
-		if (arguments.length == 0) {
-			sender.sendMessage(invalidFormat);
-			return true;
+		if (args.length == 0) {
+			sender.sendMessage("no args");
+			// TODO - USAGE EXAMPLE
+			return false;
 		}
 		
-		PseudoColor Pcolor = null;
+		Color mixResult = null;
 		
-		// remap legacy commands to be handled (MLMC)
-		if (arguments[0].toLowerCase() == "rgb") {
-			arguments[0] = arguments[1];
-			arguments[1] = arguments[2];
-			arguments[2] = arguments[3];
+		// TODO - Historic names are all single words, need to fix this gate
+		// Attempt name based handling "ie /paint mix Absolute Black"
+		// currently names all declared in config settings resolving from pseudocolor. Kinda ugly solution.
+		if (args.length == 1) {
+			
+			// TODO - this handling is bad, 
+			// Implement a reverse lookup table for paint colors that gets the mixResult Color if it exists
+			
+			// check default color maps (ie "red", "green")
+			mixResult = plugin.m_colorManager.parseColor(args[0]).color;
+			if(mixResult == null) {
+				// sender.sendMessage(invalidFormat);
+				// TODO - "Invalid color name" perhaps - review how this gate works overall with rest of function
+				return false;
+			}
 		}
 		
 		// check if full RGB value provided
-		if (arguments.length >= 3) {
-			
-			basic = false;
-			
-			// R VALUE DEFINITION
-			
-			int pigment_r = 0;
-			try { pigment_r = Integer.parseInt(arguments[0]);}
-			catch (NumberFormatException e)
-			{
-			   sender.sendMessage(invalidFormat);
-			   return true;
-			}
-				
-			if ((pigment_r > 255) || (pigment_r < 0)){ 
-				sender.sendMessage(invalidFormat);
-				return true;
-			}
-			
-			// G VALUE DEFINITION
-			
-			int pigment_g = 0;
-			try { pigment_g = Integer.parseInt(arguments[1]);}
-			catch (NumberFormatException e)
-			{
-			   sender.sendMessage(invalidFormat);
-			   return true;
-			}
-				
-			if ((pigment_g > 255) || (pigment_g < 0)){ 
-				sender.sendMessage(invalidFormat);
-				return true;
-			}
-			
-			// B VALUE DEFINITION
-			
-			int pigment_b = 0;
-			try { pigment_b = Integer.parseInt(arguments[2]);}
-			catch (NumberFormatException e)
-			{
-			   sender.sendMessage(invalidFormat);
-			   return true;
-			}
-				
-			if ((pigment_b > 255) || (pigment_b < 0)){ 
-				sender.sendMessage(invalidFormat);
-				return true;
-			}
-			
-			// Update the color being created
-			Pcolor = new PseudoColor(pigment_r, pigment_g, pigment_b);
-			
+		if ((args.length == 3) && (mixResult == null)) {
+			mixResult = plugin.utils.parseStringsToColor(args[0], args[1], args[2], sender);
 		}
 		
-		// check default color maps
-		if (Pcolor == null){
-			try {
-				Pcolor = plugin.m_colorManager.parseColor(arguments[0]);
-				if(Pcolor == null) throw new RuntimeException();
-			}
-				catch(RuntimeException e) {
-					sender.sendMessage(invalidFormat);
-					return true;
-			}
+		// TODO - USAGE MESSAGE - can't parse the color
+		if (mixResult == null) {
+			return false;
 		}
 		
+		// make sure player can recieve the item
 		Player player = (Player) sender;
-		
-		// check if player has enough free slots to receive the pigment
-        if (player.getInventory().firstEmpty() == -1){
-        	sender.sendMessage(this.needInv);
-        	return true;
-        }
+		if (plugin.utils.playerHasNoInventorySpace(player.getName(), sender)) {
+			return false;
+		}
         
         // check player can afford if economy is active
-    	Economy econ = plugin.getEconomy();    	
+    	Economy econ = MapPainting.getEconomy();    	
     	int cost = 0;
     	double balance = 0;
     	
-    	if (basic){
-			cost = plugin.costPaintBasic;
-		} else {
-			cost = plugin.costPaintRGB;
-		}
+		cost = plugin.costPaintRGB;
 
     	// check balance
     	if (econ != null){	
@@ -201,11 +143,22 @@ public class MixPaintBottleCommand extends ActualHandle {
     	}
 
         // Actually generate the item and give it to the player
-		ItemStack item = plugin.m_paintManager.getPaintBottle(Pcolor.color);
+		ItemStack item = plugin.m_paintManager.getPaintBottle(mixResult);
 		player.getInventory().addItem(item);
 		
 		sender.sendMessage(this.gavePigment);
 		
 		return true;
+	}
+
+	@Override
+	public void save(MapPainting plugin, ConfigurationSection config) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String description() {
+		return description;
 	}
 }

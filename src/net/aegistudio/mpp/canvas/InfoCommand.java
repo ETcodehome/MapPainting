@@ -1,13 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Server
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- *  org.bukkit.entity.Player
- *  org.bukkit.permissions.Permissible
- */
+
 package net.aegistudio.mpp.canvas;
 
 import java.util.TreeSet;

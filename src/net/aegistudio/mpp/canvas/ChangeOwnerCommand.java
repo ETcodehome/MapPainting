@@ -1,12 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Server
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- *  org.bukkit.entity.Player
- */
+
 package net.aegistudio.mpp.canvas;
 
 import net.aegistudio.mpp.ActualHandle;

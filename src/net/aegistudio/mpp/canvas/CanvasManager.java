@@ -26,10 +26,10 @@ implements Module {
     public static final String MAP = "map";
     public CanvasColor color = new CachedCanvasColor(5);
     public static final String POOL = "pool";
-    public final TreeSet<Integer> pool = new TreeSet();
+    public final TreeSet<Integer> pool = new TreeSet<Integer>();
     public static final String SUSPECT_TIMED_OUT = "suspectTimedOut";
     public int suspectTimedOut = 40;
-    public final TreeMap<String, String> latest = new TreeMap();
+    public final TreeMap<String, String> latest = new TreeMap<String, String>();
     public CanvasScopeListener scopeListener;
     public MapPainting painting;
 
@@ -62,7 +62,8 @@ implements Module {
         return true;
     }
 
-    public MapCanvasRegistry holding(Player player) {
+    @SuppressWarnings("deprecation")
+	public MapCanvasRegistry holding(Player player) {
         ItemStack item = player.getItemInHand();
         if (item.getType() == Material.FILLED_MAP) {
             return this.idCanvasMap.get((int) ((MapMeta) item.getItemMeta()).getMapId());
@@ -70,7 +71,8 @@ implements Module {
         return this.idCanvasMap.get((int)this.scopeListener.parse(item));
     }
 
-    public void give(Player player, MapCanvasRegistry registry, int quantity) {
+    @SuppressWarnings("deprecation")
+	public void give(Player player, MapCanvasRegistry registry, int quantity) {
         ItemStack item = player.getItemInHand();
         boolean replaceHand = false;
         

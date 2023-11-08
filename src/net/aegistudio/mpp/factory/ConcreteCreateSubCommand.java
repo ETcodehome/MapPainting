@@ -7,15 +7,11 @@ import net.aegistudio.mpp.HazardCommand;
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.canvas.Canvas;
 import net.aegistudio.mpp.canvas.MapCanvasRegistry;
-
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapView;
 
 public abstract class ConcreteCreateSubCommand extends ActualHandle implements HazardCommand {
@@ -32,7 +28,7 @@ public abstract class ConcreteCreateSubCommand extends ActualHandle implements H
       Player player = (Player)sender;
       String name = arguments[0];
       
-      // sanitise newname
+      // Sanitize new name
       name = name.replace('.', '_');
       name = name.replace('/', '_');
       name = name.replace('\\', '_');
@@ -75,7 +71,8 @@ public abstract class ConcreteCreateSubCommand extends ActualHandle implements H
   
   protected abstract Canvas create(MapPainting paramMapPainting, CommandSender paramCommandSender, String[] paramArrayOfString);
   
-  public void handle(MapPainting plugin, CommandSender sender, Object state) {
+  @SuppressWarnings("deprecation")
+public void handle(MapPainting plugin, CommandSender sender, Object state) {
     
 	  MapCanvasRegistry registry = (MapCanvasRegistry)state;
 	  Server server = Bukkit.getServer();

@@ -1,6 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- */
+
 package net.aegistudio.mpp.export;
 
 public class NamingException
@@ -23,7 +21,8 @@ extends Exception {
         return this.value;
     }
 
-    public <T> T getValue(Class<T> t) {
+    @SuppressWarnings("unchecked")
+	public <T> T getValue(Class<T> t) {
         return (T)this.value;
     }
 }

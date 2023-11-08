@@ -1,9 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.configuration.ConfigurationSection
- */
+
 package net.aegistudio.mpp.color;
 
 import net.aegistudio.mpp.MapPainting;

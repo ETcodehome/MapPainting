@@ -1,9 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.map.MapView
- */
+
 package net.aegistudio.mpp.canvas;
 
 import java.awt.Color;
@@ -16,8 +11,6 @@ import java.util.zip.GZIPOutputStream;
 import net.aegistudio.mpp.Interaction;
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.algo.Paintable;
-
-import org.bukkit.map.MapPalette;
 import org.bukkit.map.MapView;
 
 public class BufferedCanvas

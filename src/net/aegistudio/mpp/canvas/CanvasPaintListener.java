@@ -32,7 +32,8 @@ public class CanvasPaintListener implements Listener {
 
         ItemFrame itemFrame = (ItemFrame) attack.getEntity();
         if (itemFrame.getItem().getType() != Material.FILLED_MAP) return;
-        int mapId = (int) ((MapMeta) itemFrame.getItem().getItemMeta()).getMapId();
+        @SuppressWarnings("deprecation")
+		int mapId = (int) ((MapMeta) itemFrame.getItem().getItemMeta()).getMapId();
 
         MapCanvasRegistry registry = painting.m_canvasManager.idCanvasMap.get(mapId);
         if (registry == null) return;
@@ -42,7 +43,8 @@ public class CanvasPaintListener implements Listener {
             attack.setCancelled(true);
     }
 
-    @EventHandler
+    @SuppressWarnings("deprecation")
+	@EventHandler
     public void onInteract(PlayerInteractEvent interact) {
         Collection<Entity> entities;
         Location center;
@@ -99,7 +101,8 @@ public class CanvasPaintListener implements Listener {
         if (interact.getRightClicked() instanceof ItemFrame) {
             ItemFrame itemFrame = (ItemFrame) interact.getRightClicked();
             if (itemFrame.getItem().getType() != Material.FILLED_MAP) return;
-            int mapId = (int) ((MapMeta) itemFrame.getItem().getItemMeta()).getMapId();
+            @SuppressWarnings("deprecation")
+			int mapId = (int) ((MapMeta) itemFrame.getItem().getItemMeta()).getMapId();
             MapCanvasRegistry registry = painting.m_canvasManager.idCanvasMap.get(mapId);
             if (registry == null) return;
 

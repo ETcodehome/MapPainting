@@ -1,24 +1,13 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Material
- *  org.bukkit.inventory.ItemStack
- */
+
 package net.aegistudio.mpp.tool;
 
 import net.aegistudio.mpp.Interaction;
 import net.aegistudio.mpp.canvas.MapCanvasRegistry;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 

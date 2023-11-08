@@ -1,12 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Server
- *  org.bukkit.command.CommandSender
- *  org.bukkit.command.ConsoleCommandSender
- *  org.bukkit.configuration.ConfigurationSection
- */
+
 package net.aegistudio.mpp.canvas;
 
 import java.io.File;

@@ -1,13 +1,11 @@
-/*
- * Decompiled with CFR 0.145.
- */
+
 package net.aegistudio.mpp;
 
 import java.util.Stack;
 
 public class History {
-    public Stack<Memento> backward = new Stack();
-    public Stack<Memento> forward = new Stack();
+    public Stack<Memento> backward = new Stack<Memento>();
+    public Stack<Memento> forward = new Stack<Memento>();
 
     public void add(Memento memoto) {
         memoto.exec();

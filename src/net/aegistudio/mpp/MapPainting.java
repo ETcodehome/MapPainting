@@ -8,13 +8,8 @@ import net.aegistudio.mpp.color.ExpertColorParser;
 import net.aegistudio.mpp.color.RgbColorParser;
 import net.aegistudio.mpp.common.Utils;
 import net.aegistudio.mpp.control.ControlCommand;
-import net.aegistudio.mpp.export.AssetService;
-import net.aegistudio.mpp.export.PluginCanvasService;
-import net.aegistudio.mpp.export.PluginCommandService;
 import net.aegistudio.mpp.factory.CloneSubCommand;
 import net.aegistudio.mpp.factory.NormalSubCommand;
-import net.aegistudio.mpp.foreign.PluginCanvasManager;
-import net.aegistudio.mpp.foreign.PluginCommandManager;
 import net.aegistudio.mpp.paint.PaintManager;
 import net.aegistudio.mpp.paint.GivePaintBottleCommand;
 import net.aegistudio.mpp.paint.MixPaintBottleCommand;
@@ -30,7 +25,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.map.MinecraftFont;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.InputStream;
@@ -52,8 +46,6 @@ public class MapPainting extends JavaPlugin {
     public PaintToolManager m_toolManager;
     public PaintManager m_paintManager;
     public ColorManager m_colorManager;
-    public PluginCanvasManager m_foreignCanvasManager;
-    public PluginCommandManager m_foreignCommandManager;
     public AssetManager m_assetManager;
     
     public ConfigurationSection m_configSection;
@@ -111,7 +103,7 @@ public class MapPainting extends JavaPlugin {
         this.m_assetManager.put("string.center", new MidAlignStringGenerator(this.m_assetManager.get("char", CharacterGenerator.class)));
         this.m_assetManager.put("string.right", new RightAlignStringGenerator(this.m_assetManager.get("char", CharacterGenerator.class)));
         
-        m_foreignCanvasManager = new PluginCanvasManager(this);
+        // m_foreignCanvasManager = new PluginCanvasManager(this);
         
     }
 
@@ -237,11 +229,11 @@ public class MapPainting extends JavaPlugin {
             this.m_colorManager.load(this, config.getConfigurationSection(COLOR));
             
             // foreign command management?
-            this.m_foreignCanvasManager.reset();
-            this.getServer().getServicesManager().register(PluginCanvasService.class, this.m_foreignCanvasManager, this, ServicePriority.Normal);
-            this.m_foreignCommandManager = new PluginCommandManager(this);
-            this.getServer().getServicesManager().register(PluginCommandService.class, this.m_foreignCommandManager, this, ServicePriority.Normal);
-            this.getServer().getServicesManager().register(AssetService.class, this.m_assetManager, this, ServicePriority.Normal);
+            //this.m_foreignCanvasManager.reset();
+            //this.getServer().getServicesManager().register(PluginCanvasService.class, this.m_foreignCanvasManager, this, ServicePriority.Normal);
+            //this.m_foreignCommandManager = new PluginCommandManager(this);
+            //this.getServer().getServicesManager().register(PluginCommandService.class, this.m_foreignCommandManager, this, ServicePriority.Normal);
+            //this.getServer().getServicesManager().register(AssetService.class, this.m_assetManager, this, ServicePriority.Normal);
             
             // configure canvases
             this.m_canvasManager = new CanvasManager();
@@ -324,7 +316,7 @@ public class MapPainting extends JavaPlugin {
         return econ != null;
     }
     
-    public static Economy getEconomy() {
+    public Economy getEconomy() {
         return econ;
     }
     

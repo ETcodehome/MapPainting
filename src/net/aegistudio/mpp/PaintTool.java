@@ -1,9 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.inventory.ItemStack
- */
+
 package net.aegistudio.mpp;
 
 import net.aegistudio.mpp.canvas.MapCanvasRegistry;

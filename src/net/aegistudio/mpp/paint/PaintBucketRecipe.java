@@ -7,12 +7,10 @@ import net.aegistudio.mpp.Module;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapelessRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 
@@ -77,10 +75,7 @@ public class PaintBucketRecipe implements Module {
     /**
      * Defines and registers the recipe for paint buckets
      */
-    @SuppressWarnings("deprecation")
 	public void AddPaintBucketRecipe() {
-    	
-    	PaintManager PM = plugin.m_paintManager;
     	
     	// Define the resulting item
     	ItemStack result = new ItemStack(Material.MILK_BUCKET);

@@ -8,7 +8,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class ExpertColorParser
 implements ColorParser {
-    public final TreeMap<String, PseudoColor> colors = new TreeMap();
+    public final TreeMap<String, PseudoColor> colors = new TreeMap<String, PseudoColor>();
 
     public ExpertColorParser() {
         this.colors.put("red", new PseudoColor(255, 0, 0));

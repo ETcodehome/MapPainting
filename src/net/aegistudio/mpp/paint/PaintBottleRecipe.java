@@ -41,7 +41,7 @@ public class PaintBottleRecipe implements Module {
     }
 
     @Override
-    public void load(MapPainting painting, ConfigurationSection section) throws Exception {
+    public void load(MapPainting painting, ConfigurationSection section) {
         this.painting = painting;
         for (int i = 2; i <= 9; ++i) {
         	

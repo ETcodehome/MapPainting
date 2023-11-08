@@ -1,18 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Location
- *  org.bukkit.block.BlockFace
- *  org.bukkit.entity.Item
- *  org.bukkit.entity.Player
- *  org.bukkit.map.MapCanvas
- *  org.bukkit.map.MapRenderer
- *  org.bukkit.map.MapView
- *  org.bukkit.plugin.Plugin
- *  org.bukkit.scheduler.BukkitRunnable
- *  org.bukkit.scheduler.BukkitTask
- */
+
 package net.aegistudio.mpp.canvas;
 
 import java.awt.Color;
@@ -27,7 +13,6 @@ import net.aegistudio.mpp.Interaction;
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.algo.MapCanvasAdapter;
 import net.aegistudio.mpp.algo.Paintable;
-
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
@@ -50,9 +35,9 @@ implements Cloneable {
         }
     };
     protected MapView view;
-    protected final TreeSet<Integer> viewed = new TreeSet();
-    protected final HashSet<Object> observers = new HashSet();
-    protected final HashMap<Player, Integer> suspector = new HashMap();
+    protected final TreeSet<Integer> viewed = new TreeSet<Integer>();
+    protected final HashSet<Object> observers = new HashSet<Object>();
+    protected final HashMap<Player, Integer> suspector = new HashMap<Player, Integer>();
     public boolean updateDisplay = true;
 
     public Canvas(MapPainting painting) {

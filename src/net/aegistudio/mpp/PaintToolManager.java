@@ -1,10 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.configuration.ConfigurationSection
- *  org.bukkit.inventory.ItemStack
- */
+
 package net.aegistudio.mpp;
 
 import java.util.Map;
@@ -15,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class PaintToolManager
 implements PaintTool {
-    public final TreeMap<String, PaintTool> toolMap = new TreeMap();
+    public final TreeMap<String, PaintTool> toolMap = new TreeMap<String, PaintTool>();
 
     @Override
     public void load(MapPainting painting, ConfigurationSection section) throws Exception {

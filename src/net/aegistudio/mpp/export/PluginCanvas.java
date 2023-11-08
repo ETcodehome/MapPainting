@@ -1,6 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- */
+
 package net.aegistudio.mpp.export;
 
 import java.awt.Color;

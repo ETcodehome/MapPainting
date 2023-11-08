@@ -1,7 +1,6 @@
 package net.aegistudio.mpp.paint;
 
 import net.aegistudio.mpp.MapPainting;
-import net.aegistudio.mpp.color.PseudoColor;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.aegistudio.mpp.CommandHandle;
@@ -109,14 +108,14 @@ public class MixPaintBottleCommand implements CommandHandle {
 			return false;
 		}
 		
-		// make sure player can recieve the item
+		// make sure player can receive the item
 		Player player = (Player) sender;
 		if (plugin.utils.playerHasNoInventorySpace(player.getName(), sender)) {
 			return false;
 		}
         
         // check player can afford if economy is active
-    	Economy econ = MapPainting.getEconomy();    	
+    	Economy econ = plugin.getEconomy();    	
     	int cost = 0;
     	double balance = 0;
     	

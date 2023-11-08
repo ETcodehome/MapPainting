@@ -1,14 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Server
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- *  org.bukkit.map.MapRenderer
- *  org.bukkit.map.MapView
- *  org.bukkit.permissions.Permissible
- */
+
 package net.aegistudio.mpp.canvas;
 
 import java.io.File;
@@ -43,8 +33,8 @@ implements Module {
 
     public MapCanvasRegistry(String name) {
         this.name = name;
-        this.painter = new TreeSet();
-        this.interactor = new TreeSet();
+        this.painter = new TreeSet<String>();
+        this.interactor = new TreeSet<String>();
         this.interactor.add("#all");
         this.history = new History();
     }
@@ -94,7 +84,8 @@ implements Module {
         return this.owner.equals(sender.getName());
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void load(MapPainting plugin, ConfigurationSection canvas) throws Exception {
     	
     	// the binding ID associated with the map?
@@ -107,12 +98,12 @@ implements Module {
         
         this.owner = canvas.getString(OWNER);
         
-        this.painter = new TreeSet(canvas.getStringList(PAINTER));
+        this.painter = new TreeSet<String>(canvas.getStringList(PAINTER));
         
         if (canvas.contains(INTERACTOR)) {
-            this.interactor = new TreeSet(canvas.getStringList(INTERACTOR));
+            this.interactor = new TreeSet<String>(canvas.getStringList(INTERACTOR));
         } else {
-            this.interactor = new TreeSet();
+            this.interactor = new TreeSet<String>();
             this.interactor.add("#all");
         }
         

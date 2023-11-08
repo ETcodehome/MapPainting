@@ -1,6 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- */
+
 package net.aegistudio.mpp.color;
 
 import net.aegistudio.mpp.Module;

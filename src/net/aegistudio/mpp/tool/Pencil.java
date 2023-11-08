@@ -1,16 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Material
- *  org.bukkit.Server
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- *  org.bukkit.entity.Player
- *  org.bukkit.inventory.ItemStack
- *  org.bukkit.plugin.Plugin
- *  org.bukkit.scheduler.BukkitScheduler
- */
+
 package net.aegistudio.mpp.tool;
 
 import java.awt.Color;
@@ -21,8 +9,6 @@ import net.aegistudio.mpp.Interaction;
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.PaintTool;
 import net.aegistudio.mpp.canvas.MapCanvasRegistry;
-import net.aegistudio.mpp.paint.PaintManager;
-
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -31,7 +17,7 @@ import org.bukkit.plugin.Plugin;
 
 public class Pencil
 implements PaintTool {
-    public TreeMap<Integer, PencilTickCounter> lastStroke = new TreeMap();
+    public TreeMap<Integer, PencilTickCounter> lastStroke = new TreeMap<Integer, PencilTickCounter>();
     public MapPainting plugin;
     long interval = 1L;
     int initCount = 7;

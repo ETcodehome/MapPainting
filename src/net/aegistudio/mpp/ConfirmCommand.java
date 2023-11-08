@@ -1,10 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- */
+
 package net.aegistudio.mpp;
 
 import java.util.HashMap;
@@ -22,8 +16,8 @@ extends ActualHandle {
 
     public ConfirmCommand() {
         this.description = "@confirm.description";
-        this.status = new HashMap();
-        this.command = new HashMap();
+        this.status = new HashMap<CommandSender, Object>();
+        this.command = new HashMap<CommandSender, HazardCommand>();
         this.nothingToConfirm = "@confirm.nothingToConfirm";
         this.pleaseConfirm = "@confirm.pleaseConfirm";
     }

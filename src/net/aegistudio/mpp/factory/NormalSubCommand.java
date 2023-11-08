@@ -1,10 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- */
+
 package net.aegistudio.mpp.factory;
 
 import java.awt.Color;
@@ -14,7 +8,6 @@ import net.aegistudio.mpp.canvas.Canvas;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;

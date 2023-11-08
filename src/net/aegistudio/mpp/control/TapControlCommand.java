@@ -1,10 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Location
- *  org.bukkit.command.CommandSender
- */
+
 package net.aegistudio.mpp.control;
 
 import net.aegistudio.mpp.Interaction;

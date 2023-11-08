@@ -1,6 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- */
+
 package net.aegistudio.mpp;
 
 import java.util.TreeMap;
@@ -13,7 +11,8 @@ implements Asset,
 AssetService {
     private static final long serialVersionUID = 1L;
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <A extends Asset> A get(String name, Class<A> clazz) {
         if (name == null) {
             return null;

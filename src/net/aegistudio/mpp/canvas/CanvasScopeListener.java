@@ -147,6 +147,7 @@ public class CanvasScopeListener
     }
     
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
     private void onDamage(EntityDamageByEntityEvent e) {
     	
@@ -360,7 +361,8 @@ public class CanvasScopeListener
     }
     
 
-    public void placeFrame(Location blockLocation, BlockFace blockFace, MapCanvasRegistry registry) {
+    @SuppressWarnings("deprecation")
+	public void placeFrame(Location blockLocation, BlockFace blockFace, MapCanvasRegistry registry) {
         ItemFrame frame = blockLocation.getWorld().spawn(blockLocation.add(blockFace.getModX(), blockFace.getModY(), blockFace.getModZ()), ItemFrame.class);
         frame.setFacingDirection(blockFace);
         frame.setVisible(false);
@@ -371,13 +373,14 @@ public class CanvasScopeListener
         frame.setItem(mapitem);
     }
 
-    @EventHandler
+    @SuppressWarnings("deprecation")
+	@EventHandler
     public void onSpawnItem(ItemSpawnEvent e) {
         ItemStack item = e.getEntity().getItemStack();
         if (item.getType() != Material.FILLED_MAP) {
             return;
         }
-        int mapid = (int) ((MapMeta) item.getItemMeta()).getMapId();
+		int mapid = (int) ((MapMeta) item.getItemMeta()).getMapId();
         MapCanvasRegistry registry = this.plugin.m_canvasManager.idCanvasMap.get(mapid);
         if (registry != null && !registry.removed()) {
             this.make(item, registry);
@@ -390,7 +393,8 @@ public class CanvasScopeListener
         }
     }
 
-    public void removeNearby(Location location, int mapid) {
+    @SuppressWarnings("deprecation")
+	public void removeNearby(Location location, int mapid) {
         location.getWorld().getNearbyEntities(location, 0.5, 0.5, 0.5).forEach(entity -> {
             ItemStack mapitem;
             if (entity.getType() == EntityType.DROPPED_ITEM) {

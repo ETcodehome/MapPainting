@@ -1,10 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.command.CommandSender
- *  org.bukkit.configuration.ConfigurationSection
- */
+
 package net.aegistudio.mpp.factory;
 
 import net.aegistudio.mpp.MapPainting;

@@ -26,7 +26,8 @@ public class PaintBottleRecipe implements Module {
         return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue());
     }
 
-    public void setColor(ItemStack dye, Color newColor) {
+    @SuppressWarnings("deprecation")
+	public void setColor(ItemStack dye, Color newColor) {
         painting.m_paintManager.setColor(dye, newColor);
         int distance = Integer.MAX_VALUE;
         for (DyeColor color : DyeColor.values()) {
@@ -40,7 +41,8 @@ public class PaintBottleRecipe implements Module {
         dye.setDurability((short)0);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void load(MapPainting painting, ConfigurationSection section) {
         this.painting = painting;
         for (int i = 2; i <= 9; ++i) {

@@ -8,7 +8,8 @@ import org.bukkit.map.MapPalette;
 public class CanvasColor {
     public Color[] mapColorLookup;
 
-    public CanvasColor() {
+    @SuppressWarnings("deprecation")
+	public CanvasColor() {
         ArrayList<Color> colorLookup = new ArrayList<Color>();
         try {
             for (int i = 0; i < 256; ++i) {

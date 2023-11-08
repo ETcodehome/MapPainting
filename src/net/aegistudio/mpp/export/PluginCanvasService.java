@@ -1,12 +1,4 @@
-/*
- * Decompiled with CFR 0.145.
- * 
- * Could not load the following classes:
- *  org.bukkit.Location
- *  org.bukkit.block.BlockFace
- *  org.bukkit.command.CommandSender
- *  org.bukkit.plugin.Plugin
- */
+
 package net.aegistudio.mpp.export;
 
 import java.util.Collection;

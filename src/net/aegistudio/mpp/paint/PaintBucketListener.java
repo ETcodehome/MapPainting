@@ -123,7 +123,8 @@ public class PaintBucketListener implements Listener {
     /**
      * Handles consumption of paint buckets.
      */
-    @EventHandler
+    @SuppressWarnings("deprecation")
+	@EventHandler
     public void isPaintBucketTasty(PlayerItemConsumeEvent e) {
     	
     	ItemStack eventItem = e.getItem();

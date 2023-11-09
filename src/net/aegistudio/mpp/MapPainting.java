@@ -1,6 +1,5 @@
 package net.aegistudio.mpp;
 
-import com.google.common.collect.Lists;
 import net.aegistudio.mpp.algo.*;
 import net.aegistudio.mpp.canvas.*;
 import net.aegistudio.mpp.color.ColorManager;
@@ -26,8 +25,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.map.MinecraftFont;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.InputStream;
 import java.util.*;
 
 // entry point
@@ -53,8 +50,6 @@ public class MapPainting extends JavaPlugin {
     
     // declare utilities
     public Utils utils;
-    
-    public static final ArrayList<String> m_localeStrings = Lists.newArrayList("en");;
     
     // economy related variables
     public static final String COST_CREATE = "costCreate";
@@ -112,21 +107,6 @@ public class MapPainting extends JavaPlugin {
     public void onEnable() {
     	
     	// load configuration settings
-        try {
-            InputStream inputStream;
-            String locale = Locale.getDefault().toString();
-            if (!m_localeStrings.contains(locale)) {
-                locale = m_localeStrings.get(0);
-            }
-            if ((inputStream = getClass().getResourceAsStream(locale + ".properties")) == null) {
-                inputStream = getClass().getResourceAsStream("/" + locale + ".properties");
-            }
-            this.defaultLocale = new Properties();
-            this.defaultLocale.load(inputStream);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
         
         sendConsole("Preparing to load configuration files");
         

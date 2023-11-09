@@ -4,6 +4,7 @@ api
 j7bin
 dep
 mcinject
+lib
 mappainting-*.jar
 /target/
 /mcinject.properties

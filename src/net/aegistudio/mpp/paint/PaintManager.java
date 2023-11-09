@@ -248,7 +248,8 @@ public class PaintManager implements Module {
         // Color names
         for (Map.Entry<Color ,String> entry : colorNameMap.entrySet()) {
             Color color = entry.getKey();
-        	String token = "@lore.rgb." + color.getRed() + "." + color.getGreen() + "." + color.getBlue();
+            // we use underscores for the rgb code so it doesn't split it into a million config values
+        	String token = "@lore.colorname.rgb_" + color.getRed() + "_" + color.getGreen() + "_" + color.getBlue();
         	String localizedName = plugin.getLocale(token, entry.getValue(), config);
         	entry.setValue(localizedName);
         }

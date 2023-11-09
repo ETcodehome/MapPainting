@@ -64,18 +64,18 @@ public class GivePaintBottleCommand implements CommandHandle {
      * @param prefix - The command prefix /paint give.
      * @param sender - The command invoker, can be the console window.
      * @param args[] - Array of space separated arguments passed with the command
-     * @return if the command was successfully applied.
+     * @return if the command was handled by this logic.
      */
 	@Override
 	public boolean handle(MapPainting plugin, String prefix, CommandSender sender, String[] args) {
-    	
+		
         if (plugin.utils.permissionCheckFails(PERMISSION_NODE, sender)) { 
-        	return false;
+        	return true;
         }
         
         int expectedArguments = 4;
         if (plugin.utils.commandHasIncorrectNumberOfArgs(expectedArguments, args, usageGuide, sender)) { 
-        	return false; 
+        	return true; 
         };
         
         String playerName 	= args[0];
@@ -84,16 +84,16 @@ public class GivePaintBottleCommand implements CommandHandle {
         String blue			= args[3];
         
         if (plugin.utils.playerIsOffline(playerName, sender)) {
-        	return false;
+        	return true;
         }
         
         if (plugin.utils.playerHasNoInventorySpace(playerName, sender)) {
-        	return false;
+        	return true;
         }
         
         Color color = plugin.utils.parseStringsToColor(red, green, blue, sender);
         if (color == null) {
-        	return false;
+        	return true;
         }
         
         PaintManager PM = plugin.m_paintManager;

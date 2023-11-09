@@ -131,7 +131,7 @@ public class MapPainting extends JavaPlugin {
             this.m_commandHandler.add("redo", new RedoCommand());
             //this.control = new ControlCommand();
             //this.command.add("control", this.control); // dont need control do we?
-            this.m_commandHandler.add("buy", new MixPaintBottleCommand());
+            this.m_commandHandler.add("mix", new MixPaintBottleCommand());
             this.m_commandHandler.add("give", new GivePaintBottleCommand());
             //this.command.add("purge", new PurgeCanvasCommand());
             

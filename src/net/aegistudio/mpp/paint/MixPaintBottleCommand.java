@@ -65,18 +65,18 @@ public class MixPaintBottleCommand implements CommandHandle {
 	public boolean handle(MapPainting plugin, String prefix, CommandSender sender, String[] args) {
 		
 		if (plugin.utils.senderIsNonPlayer(sender)) { 
-			return false;
+			return true;
 		}
 		
 		if (plugin.utils.permissionCheckFails(PERMISSION_NODE, sender)) {
-			return false;
+			return true;
 		}
 		
 		// make sure the command has arguments
 		if (args.length == 0) {
 			sender.sendMessage("no args");
 			// TODO - USAGE EXAMPLE
-			return false;
+			return true;
 		}
 		
 		Color mixResult = null;
@@ -94,7 +94,7 @@ public class MixPaintBottleCommand implements CommandHandle {
 			if(mixResult == null) {
 				// sender.sendMessage(invalidFormat);
 				// TODO - "Invalid color name" perhaps - review how this gate works overall with rest of function
-				return false;
+				return true;
 			}
 		}
 		
@@ -105,13 +105,13 @@ public class MixPaintBottleCommand implements CommandHandle {
 		
 		// TODO - USAGE MESSAGE - can't parse the color
 		if (mixResult == null) {
-			return false;
+			return true;
 		}
 		
 		// make sure player can receive the item
 		Player player = (Player) sender;
 		if (plugin.utils.playerHasNoInventorySpace(player.getName(), sender)) {
-			return false;
+			return true;
 		}
         
         // check player can afford if economy is active

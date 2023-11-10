@@ -9,7 +9,6 @@ import net.aegistudio.mpp.common.Utils;
 import net.aegistudio.mpp.control.ControlCommand;
 import net.aegistudio.mpp.factory.CloneCreateCommand;
 import net.aegistudio.mpp.factory.NormalCreateCommand;
-import net.aegistudio.mpp.factory.WrapCreateCommand;
 import net.aegistudio.mpp.paint.PaintManager;
 import net.aegistudio.mpp.paint.GivePaintBottleCommand;
 import net.aegistudio.mpp.paint.MixPaintBottleCommand;
@@ -132,22 +131,11 @@ public class MapPainting extends JavaPlugin {
             this.m_commandHandler.add("redo", new RedoCommand());
             this.m_commandHandler.add("mix", new MixPaintBottleCommand());
             this.m_commandHandler.add("give", new GivePaintBottleCommand());
-            //this.command.add("purge", new PurgeCanvasCommand());
-            
-            // changes to match preferred syntax
             this.m_commandHandler.add("clone", new CloneCreateCommand());
             this.m_commandHandler.add("create", new NormalCreateCommand());
-            
-            
             this.m_commandConfirmHandler = new ConfirmCommand();
             this.m_commandHandler.add(CONFIRM, this.m_commandConfirmHandler);
             
-            //this.create.add("normal", new NormalSubCommand());
-            this.m_commandHandler.add("wrap", new WrapCreateCommand());
-            //this.create.add("clone", new CloneSubCommand());
-            //this.control.add("tap", new TapControlCommand());
-            //this.control.add("wrap", new WrapControlCommand());
-            //this.control.add("debug", new ScriptDebugCommand());
             if (!config.contains(COMMAND_LOCALE)) {
                 config.createSection(COMMAND_LOCALE);
             }

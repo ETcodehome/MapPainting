@@ -11,7 +11,6 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 
 

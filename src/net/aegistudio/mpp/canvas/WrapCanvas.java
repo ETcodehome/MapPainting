@@ -34,6 +34,9 @@ public class WrapCanvas extends Canvas implements CanvasWrapper {
 
 	@Override
 	public void paint(Interaction interact, Color color) {
+		
+		interact.sender.sendMessage("trying to interact (paint)");
+		
 		this.retrieve();
 		if (this.wrappedCanvas == null) {
 			return;
@@ -55,6 +58,9 @@ public class WrapCanvas extends Canvas implements CanvasWrapper {
 
 	@Override
 	public boolean interact(Interaction interact) {
+		
+		interact.sender.sendMessage("trying to interact (main)");
+		
 		this.retrieve();
 		if (this.wrappedCanvas == null) {
 			return false;

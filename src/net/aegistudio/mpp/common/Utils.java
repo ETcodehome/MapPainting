@@ -126,6 +126,24 @@ public class Utils implements Module {
         }
 		return false;
 	}
+	
+	
+	/**
+     * Checks if a command has a minimum number of parameters (matches expected)
+     * @param expectedCount - the number of args expected
+     * @param args - the command args
+     * @param usageGuide - the feedback to give the sender (ie how to use the command)
+     * @param sender - the commandSender to check and notify if failed
+     * @return boolean - true if the check fails, false if the number of args is correct
+     */
+	public boolean commandHasTooFewArgs(int expectedCount, String[] args, String usageGuide, CommandSender sender) {
+		
+        if (args.length < expectedCount) {
+            sender.sendMessage(usageGuide);
+            return true;
+        }
+		return false;
+	}
 
 
 	/**

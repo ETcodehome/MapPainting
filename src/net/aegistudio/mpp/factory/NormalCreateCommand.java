@@ -12,8 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-public class NormalSubCommand
-extends ConcreteCreateSubCommand {
+public class NormalCreateCommand extends BaseCreateCommand {
+	
     public static final String INVALID_FORMAT = "invalidFormat";
     public String invalidFormat;
     public static final String OUT_OF_RANGE = "outOfRange";
@@ -26,7 +26,7 @@ extends ConcreteCreateSubCommand {
     public String cantAfford;
     
 
-    public NormalSubCommand() {
+    public NormalCreateCommand() {
         this.description = "@create.normal.description";
         this.paramList = "[<1~128>] [<background>]";
         this.invalidFormat = "@create.normal.invalidFormat";
@@ -39,24 +39,18 @@ extends ConcreteCreateSubCommand {
     @Override
     protected Canvas create(MapPainting plugin, CommandSender sender, String[] arguments) {
     	
-    	// check sender is a player
-    	if (!(sender instanceof Player)) {
-    		sender.sendMessage(plugin.m_commandCreateHandler.onlyPlayer);
-    		return null;
-    	}
-    	Player player = (Player) sender;
-    	
     	// check sender has permission to create new paintings
     	if (!sender.hasPermission("mpp.create.normal")) {
             sender.sendMessage(plugin.m_commandCreateHandler.noCreatePermission);
             return null;
         }
     	
-        // check if player has enough free slots to receive the painting
-        if (player.getInventory().firstEmpty() == -1){
-        	sender.sendMessage(this.needInv);
-        	return null;
-        }
+    	// check sender is a player
+    	if (!(sender instanceof Player)) {
+    		sender.sendMessage(plugin.m_commandCreateHandler.onlyPlayer);
+    		return null;
+    	}
+    	Player player = (Player) sender;
     	
     	// check player can afford if economy is active
     	Economy econ = plugin.getEconomy();
@@ -136,5 +130,6 @@ extends ConcreteCreateSubCommand {
         this.charged = plugin.getLocale(CHARGED, this.charged, section);
         this.cantAfford = plugin.getLocale(CANT_AFFORD, this.cantAfford, section);
     }
+
 }
 

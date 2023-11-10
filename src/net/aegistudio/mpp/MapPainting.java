@@ -7,8 +7,9 @@ import net.aegistudio.mpp.color.ExpertColorParser;
 import net.aegistudio.mpp.color.RgbColorParser;
 import net.aegistudio.mpp.common.Utils;
 import net.aegistudio.mpp.control.ControlCommand;
-import net.aegistudio.mpp.factory.CloneSubCommand;
-import net.aegistudio.mpp.factory.NormalSubCommand;
+import net.aegistudio.mpp.factory.CloneCreateCommand;
+import net.aegistudio.mpp.factory.NormalCreateCommand;
+import net.aegistudio.mpp.factory.WrapCreateCommand;
 import net.aegistudio.mpp.paint.PaintManager;
 import net.aegistudio.mpp.paint.GivePaintBottleCommand;
 import net.aegistudio.mpp.paint.MixPaintBottleCommand;
@@ -119,9 +120,9 @@ public class MapPainting extends JavaPlugin {
             
             this.m_commandHandler = new CompositeHandle();
             this.m_commandCreateHandler = new CreateCanvasCommand(); // needed to load strings
-            //this.command.add("create", this.create); // paint create [painting name] [1-128] (1000g)
+            
             this.m_commandHandler.add("destroy", new DestroyCanvasCommand());
-            this.m_commandHandler.add("clone", new GiveCanvasCommand());
+            this.m_commandHandler.add("duplicate", new GiveCanvasCommand());
             this.m_commandHandler.add("changeowner", new ChangeOwnerCommand());
             this.m_commandHandler.add("managepainters", new ChangeModeCommand());
             this.m_commandHandler.add("rename", new RenameCommand());
@@ -129,22 +130,20 @@ public class MapPainting extends JavaPlugin {
             this.m_commandHandler.add("info", new InfoCommand());
             this.m_commandHandler.add("undo", new UndoCommand());
             this.m_commandHandler.add("redo", new RedoCommand());
-            //this.control = new ControlCommand();
-            //this.command.add("control", this.control); // dont need control do we?
             this.m_commandHandler.add("mix", new MixPaintBottleCommand());
             this.m_commandHandler.add("give", new GivePaintBottleCommand());
             //this.command.add("purge", new PurgeCanvasCommand());
             
             // changes to match preferred syntax
-            this.m_commandHandler.add("copy", new CloneSubCommand());
-            this.m_commandHandler.add("create", new NormalSubCommand());
+            this.m_commandHandler.add("clone", new CloneCreateCommand());
+            this.m_commandHandler.add("create", new NormalCreateCommand());
             
             
             this.m_commandConfirmHandler = new ConfirmCommand();
             this.m_commandHandler.add(CONFIRM, this.m_commandConfirmHandler);
             
             //this.create.add("normal", new NormalSubCommand());
-            //this.create.add("wrap", new WrapSubCommand());
+            this.m_commandHandler.add("wrap", new WrapCreateCommand());
             //this.create.add("clone", new CloneSubCommand());
             //this.control.add("tap", new TapControlCommand());
             //this.control.add("wrap", new WrapControlCommand());
@@ -418,9 +417,7 @@ public class MapPainting extends JavaPlugin {
         ArrayList<String> complete = new ArrayList<>();
         try {
             if(command.getName().equals("paint"))
-                base = this.m_commandHandler;/*
-            else if(command.getName().equals("mppctl"))
-                base = this.control;*/
+                base = this.m_commandHandler;
             if(base == null) return complete;
 
             CommandHandle handle = base;

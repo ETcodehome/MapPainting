@@ -184,7 +184,11 @@ implements Cloneable {
         this.tickRunnable.cancel();
     }
 
-    public void render(MapView view, MapCanvas canvas, Player player) {
+    @SuppressWarnings("deprecation")
+	public void render(MapView view, MapCanvas canvas, Player player) {
+    	
+    	canvas.setPixel(0, 0, (byte) 18);
+    	
         if (!this.hasViewed(player)) {
             this.context.subrender(view, new MapCanvasAdapter(this.painting.m_canvasManager.color, canvas));
         }

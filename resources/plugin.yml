@@ -7,18 +7,10 @@ depend:
   - WorldEdit
   - WorldGuard
 commands:
-  palette:
-    description: Give someone a color
-    usage: /palette <player> <red> <green> <blue> <optional-amount>
   paint:
     description: Command service provided by map painting.
     usage: /paint <subcommand> [<parameters>]
     permission: mpp.command
-    permission-message: You don't have permission to do that!
-  mppctl:
-    description: Control commands provided by map painting.
-    usage: /mppctl <subcommand> <canvas> [<parameters>]
-    permission: mpp.control
     permission-message: You don't have permission to do that!
 permissions:
   mpp.paint:

@@ -6,9 +6,8 @@ import net.aegistudio.mpp.canvas.Canvas;
 import net.aegistudio.mpp.canvas.WrapCanvas;
 import org.bukkit.command.CommandSender;
 
-public class WrapSubCommand
-extends ConcreteCreateSubCommand {
-    public WrapSubCommand() {
+public class WrapCreateCommand extends BaseCreateCommand {
+    public WrapCreateCommand() {
         this.description = "@create.wrap.description";
         this.paramList = "";
     }
@@ -18,5 +17,6 @@ extends ConcreteCreateSubCommand {
         WrapCanvas canvas = new WrapCanvas(painting);
         return canvas;
     }
+
 }
 

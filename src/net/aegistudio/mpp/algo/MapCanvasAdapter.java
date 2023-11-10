@@ -26,7 +26,8 @@ implements Paintable {
         this.color = (byte)this.canvasColor.getIndex(c);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void set(int x, int y) {
         this.canvas.setPixel(x, 127 - y, this.color);
     }
@@ -36,7 +37,8 @@ implements Paintable {
         return this.canvasColor.getColor(this.bget(x, y));
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public byte bget(int x, int y) {
         return this.canvas.getPixel(x, 127 - y);
     }

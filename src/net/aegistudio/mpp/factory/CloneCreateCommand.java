@@ -11,8 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-public class CloneSubCommand
-extends ConcreteCreateSubCommand {
+public class CloneCreateCommand
+extends BaseCreateCommand {
     public static final String CLONED_UNSPECIFIED = "clonedUnspecified";
     public String clonedUnspecified;
     public static final String CANVAS_NOT_EXISTS = "canvasNotExists";
@@ -27,7 +27,7 @@ extends ConcreteCreateSubCommand {
     public String noPermission;
     
 
-    public CloneSubCommand() {
+    public CloneCreateCommand() {
         this.description = "@create.clone.description";
         this.paramList = "<cloned>";
         this.clonedUnspecified = "@create.clone.clonedUnspecified";
@@ -41,6 +41,12 @@ extends ConcreteCreateSubCommand {
     @Override
     protected Canvas create(MapPainting plugin, CommandSender sender, String[] arguments) {
         
+    	// check sender has sufficient perms
+    	if (!sender.hasPermission("mpp.create.clone")) {
+            sender.sendMessage(plugin.m_commandCreateHandler.noCreatePermission);
+            return null;
+        }
+    	
     	// check sender is a player
     	if (!(sender instanceof Player)) {
     		sender.sendMessage(plugin.m_commandCreateHandler.onlyPlayer);
@@ -48,12 +54,6 @@ extends ConcreteCreateSubCommand {
     	}
     	
     	Player player = (Player) sender;
-    	
-        // check if player has enough free slots to receive the painting
-        if (player.getInventory().firstEmpty() == -1){
-        	sender.sendMessage(this.needInv);
-        	return null;
-        }
     	
     	// check player can afford if economy is active
     	Economy econ = plugin.getEconomy();
@@ -71,12 +71,6 @@ extends ConcreteCreateSubCommand {
     		}
     		
     	}
-    	
-    	// check sender has sufficient perms
-    	if (!sender.hasPermission("mpp.create.clone")) {
-            sender.sendMessage(plugin.m_commandCreateHandler.noCreatePermission);
-            return null;
-        }
     	
     	if (arguments.length == 0) {
             sender.sendMessage(this.clonedUnspecified);
@@ -117,5 +111,6 @@ extends ConcreteCreateSubCommand {
         this.clonedUnspecified = painting.getLocale(CLONED_UNSPECIFIED, this.clonedUnspecified, section);
         this.canvasNotExists = painting.getLocale(CANVAS_NOT_EXISTS, this.canvasNotExists, section);
     }
+
 }
 

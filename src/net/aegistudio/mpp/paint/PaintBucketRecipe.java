@@ -14,17 +14,10 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.Plugin;
 
 
+/**
+ * Responsible for definition, registration and configuration of the paint bucket crafting recipe.
+ */
 public class PaintBucketRecipe implements Module {
-	
-	// String localization
-	
-    public static final String BUCKET_DRINK_TOKEN 		= "@palette.bucket.drink";
-    public static final String BUCKET_DRINK_INVARIANT 	= "GLUG, GLUG, GLUG!"; 
-    public String drinkPaintBucket 						= BUCKET_DRINK_INVARIANT;
-    
-    public static final String BUCKET_FILLED_TOKEN 		= "@palette.bucket.filled";
-    public static final String BUCKET_FILLED_INVARIANT 	= "Filled Paint Bucket"; 
-    public String fillBucket 							= BUCKET_FILLED_INVARIANT;
     
     // Quick reference to the main plugin for ease of accessing other classes
     public MapPainting plugin;
@@ -67,7 +60,7 @@ public class PaintBucketRecipe implements Module {
      * Adds a paint bucket listener that handles interactions related to paint buckets
      */
     public void RegisterPaintBucketListener() {
-    	PaintBucketListener listener = new PaintBucketListener(plugin.m_paintManager);
+    	PaintBucketListener listener = new PaintBucketListener(plugin);
         plugin.getServer().getPluginManager().registerEvents((Listener)listener, (Plugin)plugin);
     }
     
@@ -104,10 +97,6 @@ public class PaintBucketRecipe implements Module {
         
     	// Update the uninstantiated plugin reference
     	this.plugin = plugin;
-    	
-        // Localize paint bucket related strings
-        this.drinkPaintBucket = plugin.getLocale(BUCKET_DRINK_TOKEN, BUCKET_DRINK_INVARIANT, config);
-        this.fillBucket = plugin.getLocale(BUCKET_FILLED_TOKEN, BUCKET_FILLED_INVARIANT, config);
         
         AddPaintBucketRecipe();
         RegisterPaintBucketListener();

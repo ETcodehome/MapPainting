@@ -3,9 +3,6 @@ package net.aegistudio.mpp.canvas;
 
 import net.aegistudio.mpp.ActualHandle;
 import net.aegistudio.mpp.MapPainting;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -23,10 +20,6 @@ public class RenameCommand extends ActualHandle {
 	public String noRenamePermission;
 	public static final String SUCCESSFULLY_RENAME = "successfullyRename";
 	public String successfullyRename;
-	public static final String CANT_AFFORD = "cantAfford";
-	public String cantAfford;
-	public static final String CHARGED = "charged";
-	public String charged;
 
 	public RenameCommand() {
 		this.description = "@rename.description";
@@ -36,8 +29,6 @@ public class RenameCommand extends ActualHandle {
 		this.notHolding = "@rename.notHolding";
 		this.noRenamePermission = "@rename.noRenamePermission";
 		this.successfullyRename = "@rename.successfullyRename";
-		this.cantAfford = "@rename.cantAfford $cost";
-		this.charged = "@rename.charged $cost";
 	}
 
 	@Override
@@ -98,34 +89,6 @@ public class RenameCommand extends ActualHandle {
 			sender.sendMessage(this.canvasAlreadyExist.replace("$canvasName", newname));
 			return true;
 		}
-        
-        // check player can afford if economy is active
-    	Economy econ = plugin.getEconomy();    	
-    	int cost = 0;
-    	double balance = 0;
-
-    	if (econ != null){
-    		
-    		cost = plugin.costRename;
-    		balance = econ.getBalance(player);
-    		
-    		if (balance < cost) {
-    			sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-    			return true;
-    		}
-    		
-    	}
-    	
-    	// charge the player appropriately
-        if (econ != null){
-        	EconomyResponse transaction = econ.withdrawPlayer(player,  cost);
-        	if (transaction.transactionSuccess()) {
-        		sender.sendMessage(this.charged.replace("$cost", String.valueOf(cost)));
-        	} else {
-        		sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-        		return true;
-        	}
-    	}
 		
 		String oldname = oldcanvas.name;
 		plugin.m_canvasManager.nameCanvasMap.put(newname, oldcanvas);
@@ -152,7 +115,5 @@ public class RenameCommand extends ActualHandle {
 		this.notHolding = painting.getLocale(NOT_HOLDING, this.notHolding, section);
 		this.noRenamePermission = painting.getLocale(NO_RENAME_PERMISSION, this.noRenamePermission, section);
 		this.successfullyRename = painting.getLocale(SUCCESSFULLY_RENAME, this.successfullyRename, section);
-		this.cantAfford = painting.getLocale(CANT_AFFORD, this.cantAfford, section);
-		this.charged = painting.getLocale(CHARGED, this.charged, section);
 	}
 }

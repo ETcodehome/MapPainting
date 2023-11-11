@@ -91,8 +91,6 @@ implements Module {
     	// the binding ID associated with the map?
     	this.binding = (int)canvas.getInt(BINDING);
     	
-    	plugin.getServer().getConsoleSender().sendMessage("attempting to bind " + binding.toString());
-    	
     	// the actual mapview (display surface?)
         this.view = plugin.getServer().getMap(this.binding);
         

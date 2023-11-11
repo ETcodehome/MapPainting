@@ -13,7 +13,6 @@ import net.aegistudio.mpp.paint.PaintManager;
 import net.aegistudio.mpp.paint.GivePaintBottleCommand;
 import net.aegistudio.mpp.paint.MixPaintBottleCommand;
 import net.aegistudio.mpp.tool.*;
-import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,7 +22,6 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.map.MinecraftFont;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.*;
 
@@ -50,21 +48,6 @@ public class MapPainting extends JavaPlugin {
     
     // declare utilities
     public Utils utils;
-    
-    // economy related variables
-    public static final String COST_CREATE = "costCreate";
-    public int costCreate = 1000;
-    public static final String COST_CLONE = "costClone";
-    public int costClone = 250;
-    public static final String COST_COPY = "costCopy";
-    public int costCopy = 500;
-    public static final String COST_RENAME = "costRename";
-    public int costRename = 100;
-    public static final String COST_PAINTBASIC = "costPaintBasic";
-    public int costPaintBasic = 250;
-    public static final String COST_PAINTRGB = "costPaintRGB";
-    public int costPaintRGB = 1000;
-    private static Economy econ;
     
     public static final String LISTING_TITLE = "listing";
     public String listing = "@composite.listing";
@@ -155,15 +138,6 @@ public class MapPainting extends JavaPlugin {
             } else {
                 m_configSection.set(COMMANDS_PER_PAGE, this.commandsPerPage);
             }
-
-            // Vault based economy hookup
-            if (!setupEconomy() ) {
-            	sendConsole("No Vault based economy found, command costs are disabled");
-                //return;
-            } else {
-            	sendConsole("Vault based economy found, enabling command costs");
-            	configureEconomy(m_configSection,this);
-            }
             
             this.fastTarget = this.getLocale(FAST_TARGET, this.fastTarget, m_configSection);
             
@@ -195,13 +169,6 @@ public class MapPainting extends JavaPlugin {
             }
             this.m_colorManager.load(this, config.getConfigurationSection(COLOR));
             
-            // foreign command management?
-            //this.m_foreignCanvasManager.reset();
-            //this.getServer().getServicesManager().register(PluginCanvasService.class, this.m_foreignCanvasManager, this, ServicePriority.Normal);
-            //this.m_foreignCommandManager = new PluginCommandManager(this);
-            //this.getServer().getServicesManager().register(PluginCommandService.class, this.m_foreignCommandManager, this, ServicePriority.Normal);
-            //this.getServer().getServicesManager().register(AssetService.class, this.m_assetManager, this, ServicePriority.Normal);
-            
             // configure canvases
             this.m_canvasManager = new CanvasManager();
             if (!config.contains(CANVAS)) {
@@ -209,37 +176,6 @@ public class MapPainting extends JavaPlugin {
             }
             this.m_canvasManager.load(this, config.getConfigurationSection(CANVAS));
             
-            /*
-             * USED TO CHECK IF OLD SHORT ISSUES STILL EXIST
-             * 
-             * 
-            try {
-            	
-            	for (int i=5; i<= 80000; i++){
-            		this.getServer().createMap(this.getServer().getWorlds().get(0));
-            		sendConsole( i  + " of 80000" );
-            	}
-            	
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            */
-            
-            /*
-            
-            if (this.getServer().getWorld("PaintingStorage") == null) {
-                WorldCreator wc = new WorldCreator("PaintingStorage");
-                wc.environment(World.Environment.NORMAL);
-                wc.type(WorldType.FLAT);
-                wc.generatorSettings("2;0;1;");
-                wc.createWorld();
-                
-            }
-            
-            */
-
-            // save the configuration? why save when we load?
-            // SAVES ANY NEW VALUES INPUT BY CONFIG
             this.saveConfig();
             sendConsole("Configuration file saved");
 
@@ -267,75 +203,6 @@ public class MapPainting extends JavaPlugin {
     public void ackHistory(MapCanvasRegistry registry, CommandSender sender) {
         this.m_canvasManager.latest.put(sender.getName(), registry.name);
     }
-    
-    // Vault hooks
-    private boolean setupEconomy() {
-    	
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        econ = rsp.getProvider();
-        return econ != null;
-    }
-    
-    public Economy getEconomy() {
-        return econ;
-    }
-    
-    private void configureEconomy(ConfigurationSection locale, MapPainting plugin) {
-    	
-    	// create values if they do not exist, load otherwise
-        if (locale.contains(COST_CREATE)) {
-            plugin.costCreate = locale.getInt(COST_CREATE);
-        } else {
-            locale.set(COST_CREATE, plugin.costCreate);
-        }
-        
-        // create values if they do not exist, load otherwise
-        if (locale.contains(COST_CLONE)) {
-            plugin.costClone = locale.getInt(COST_CLONE);
-        } else {
-            locale.set(COST_CLONE, plugin.costClone);
-        }
-
-        // create values if they do not exist, load otherwise
-        if (locale.contains(COST_COPY)) {
-            plugin.costCopy = locale.getInt(COST_COPY);
-        } else {
-            locale.set(COST_COPY, plugin.costCopy);
-        }
-        
-        // create values if they do not exist, load otherwise
-        if (locale.contains(COST_RENAME)) {
-            plugin.costRename = locale.getInt(COST_RENAME);
-        } else {
-            locale.set(COST_RENAME, plugin.costRename);
-        }
-        
-        // create values if they do not exist, load otherwise
-        if (locale.contains(COST_PAINTBASIC)) {
-            plugin.costPaintBasic = locale.getInt(COST_PAINTBASIC);
-        } else {
-            locale.set(COST_PAINTBASIC, plugin.costPaintBasic);
-        }
-        
-        // create values if they do not exist, load otherwise
-        if (locale.contains(COST_PAINTRGB)) {
-            plugin.costPaintRGB = locale.getInt(COST_PAINTRGB);
-        } else {
-            locale.set(COST_PAINTRGB, plugin.costPaintRGB);
-        }
-        
-        // update the plugins locale with updated config
-        plugin.m_configSection = locale;
-    	
-    }
-
     
     
     private void sendConsole(String message) {

@@ -184,7 +184,6 @@ implements Cloneable {
         this.tickRunnable.cancel();
     }
 
-    @SuppressWarnings("deprecation")
 	public void render(MapView view, MapCanvas canvas, Player player) {
     	
         if (!this.hasViewed(player)) {

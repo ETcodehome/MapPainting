@@ -3,6 +3,7 @@ package net.aegistudio.mpp.paint;
 
 import java.awt.Color;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,13 +15,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.potion.PotionEffectType;
 
+import net.aegistudio.mpp.MapPainting;
+
 /**
  * Defines event listeners related to paint bucket recipe crafting (...and consumption)
  * Canvas interactions are not managed here.
  */
 public class PaintBucketListener implements Listener {
     
+	// String localization
+	
+    public static final String BUCKET_DRINK_TOKEN 		= "@paint.bucket.drink";
+    public static final String BUCKET_DRINK_INVARIANT 	= "GLUG, GLUG, GLUG!"; 
+    public String drinkPaintBucket 						= BUCKET_DRINK_INVARIANT;
+	
 	private PaintManager PM;
+	
     PotionEffectType[] rewards = new PotionEffectType[]{PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION, PotionEffectType.HARM, PotionEffectType.HUNGER, PotionEffectType.POISON, PotionEffectType.WEAKNESS};
 
     
@@ -29,8 +39,13 @@ public class PaintBucketListener implements Listener {
      * Defines event listeners related to paint bucket recipe crafting (...and consumption)
      * Canvas interactions are not managed here.
      */
-    public PaintBucketListener(PaintManager paintManager) {
-        PM = paintManager;
+    public PaintBucketListener(MapPainting plugin) {
+        PM = plugin.m_paintManager;
+        
+        // Localize paint bucket related strings
+        ConfigurationSection config = plugin.getConfig();
+        this.drinkPaintBucket = plugin.getLocale(BUCKET_DRINK_TOKEN, BUCKET_DRINK_INVARIANT, config);
+        
     }
 
     
@@ -140,7 +155,7 @@ public class PaintBucketListener implements Listener {
         }
         
         this.rewards[(int)((double)this.rewards.length * Math.random())].createEffect(2000, 1).apply((LivingEntity)e.getPlayer());
-        e.getPlayer().sendMessage(this.PM.paintBucketRecipe.drinkPaintBucket);
+        e.getPlayer().sendMessage(this.drinkPaintBucket);
         ItemStack item = new ItemStack(Material.BUCKET, 1);
         e.getPlayer().setItemInHand(item);
         e.setCancelled(true);

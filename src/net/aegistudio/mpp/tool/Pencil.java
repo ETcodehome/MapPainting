@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import net.aegistudio.mpp.Interaction;
 import net.aegistudio.mpp.MapPainting;
-import net.aegistudio.mpp.PaintTool;
 import net.aegistudio.mpp.canvas.MapCanvasRegistry;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;

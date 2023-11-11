@@ -1,5 +1,5 @@
 
-package net.aegistudio.mpp.factory;
+package net.aegistudio.mpp.create;
 
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.canvas.Canvas;

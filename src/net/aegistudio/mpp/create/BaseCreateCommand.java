@@ -1,5 +1,5 @@
 
-package net.aegistudio.mpp.factory;
+package net.aegistudio.mpp.create;
 
 import net.aegistudio.mpp.ActualHandle;
 import net.aegistudio.mpp.MapPainting;
@@ -44,7 +44,7 @@ public abstract class BaseCreateCommand extends ActualHandle {
 	    // Guard against new canvas name being an existing canvas name
 	    if (plugin.m_canvasManager.nameCanvasMap.containsKey(name)) {
 	    	// TODO - better localization
-	        sender.sendMessage(plugin.m_commandCreateHandler.canvasAlreadyExisted.replace("$canvasName", name));
+	        sender.sendMessage("The new canvas name provided already exists");
 	        return true;
 	    }
 	    
@@ -133,7 +133,7 @@ public abstract class BaseCreateCommand extends ActualHandle {
 	    }
 	    
 	    // TODO - Feedback Message
-	    sender.sendMessage(plugin.m_commandCreateHandler.bound.replace("$canvasName", paintingData.name));
+	    sender.sendMessage("Bound new canvas " + paintingData.name + "(Map #" + paintingData.binding + ")");
 	    
 	    // Log that the player created the painting
 	    plugin.ackHistory(paintingData, sender);

@@ -6,9 +6,8 @@ import net.aegistudio.mpp.color.ColorManager;
 import net.aegistudio.mpp.color.ExpertColorParser;
 import net.aegistudio.mpp.color.RgbColorParser;
 import net.aegistudio.mpp.common.Utils;
-import net.aegistudio.mpp.control.ControlCommand;
-import net.aegistudio.mpp.factory.CloneCreateCommand;
-import net.aegistudio.mpp.factory.NormalCreateCommand;
+import net.aegistudio.mpp.create.CloneCreateCommand;
+import net.aegistudio.mpp.create.NormalCreateCommand;
 import net.aegistudio.mpp.paint.PaintManager;
 import net.aegistudio.mpp.paint.GivePaintBottleCommand;
 import net.aegistudio.mpp.paint.MixPaintBottleCommand;
@@ -21,7 +20,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.map.MinecraftFont;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.*;
 
@@ -34,8 +32,7 @@ public class MapPainting extends JavaPlugin {
 	// command handlers?
 	public CompositeHandle m_commandHandler;
     public ConfirmCommand m_commandConfirmHandler;
-    public CreateCanvasCommand m_commandCreateHandler;
-    public ControlCommand m_commandControlHandler;
+    //public CreateCanvasCommand m_commandCreateHandler;
     
     // declare managers
     public PaintToolManager m_toolManager;
@@ -75,13 +72,6 @@ public class MapPainting extends JavaPlugin {
     	m_assetManager = new AssetManager();
         this.m_assetManager.put("line", new DdaLineGenerator());
         this.m_assetManager.put("fill", new ScanFloodFillGenerator());
-        this.m_assetManager.put("char", new SpriteCharGenerator(MinecraftFont.Font));
-        this.m_assetManager.group("string");
-        this.m_assetManager.put("string.left", new StringLineGenerator(this.m_assetManager.get("char", CharacterGenerator.class)));
-        this.m_assetManager.put("string.center", new MidAlignStringGenerator(this.m_assetManager.get("char", CharacterGenerator.class)));
-        this.m_assetManager.put("string.right", new RightAlignStringGenerator(this.m_assetManager.get("char", CharacterGenerator.class)));
-        
-        // m_foreignCanvasManager = new PluginCanvasManager(this);
         
     }
 
@@ -101,7 +91,7 @@ public class MapPainting extends JavaPlugin {
             this.utils = new Utils(this);
             
             this.m_commandHandler = new CompositeHandle();
-            this.m_commandCreateHandler = new CreateCanvasCommand(); // needed to load strings
+            // this.m_commandCreateHandler = new CreateCanvasCommand(); // needed to load strings
             
             this.m_commandHandler.add("destroy", new DestroyCanvasCommand());
             this.m_commandHandler.add("duplicate", new GiveCanvasCommand());
@@ -130,7 +120,7 @@ public class MapPainting extends JavaPlugin {
             
             // TODO - BETTER FIX FOR THIS DIRTY FIX TO LOADING CONFIG MESSAGES FOR SUB COMMANDS OF PAINTINGS
             // effectively this is jsut running the config stage for the create sub command to load the output messages
-            this.m_commandCreateHandler.load(this, m_configSection);
+            //this.m_commandCreateHandler.load(this, m_configSection);
             
             // sets how many rows of commands show when being listed
             if (m_configSection.contains(COMMANDS_PER_PAGE)) {

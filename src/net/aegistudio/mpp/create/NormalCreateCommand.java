@@ -1,5 +1,5 @@
 
-package net.aegistudio.mpp.factory;
+package net.aegistudio.mpp.create;
 
 import java.awt.Color;
 import net.aegistudio.mpp.MapPainting;
@@ -32,13 +32,13 @@ public class NormalCreateCommand extends BaseCreateCommand {
     	
     	// check sender has permission to create new paintings
     	if (!sender.hasPermission("mpp.create.normal")) {
-            sender.sendMessage(plugin.m_commandCreateHandler.noCreatePermission);
+            sender.sendMessage("No permission");
             return null;
         }
     	
     	// check sender is a player
     	if (!(sender instanceof Player)) {
-    		sender.sendMessage(plugin.m_commandCreateHandler.onlyPlayer);
+    		sender.sendMessage("not a player");
     		return null;
     	}
     	

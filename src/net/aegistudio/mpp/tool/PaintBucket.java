@@ -4,7 +4,6 @@ package net.aegistudio.mpp.tool;
 import java.awt.Color;
 import net.aegistudio.mpp.Interaction;
 import net.aegistudio.mpp.MapPainting;
-import net.aegistudio.mpp.PaintTool;
 import net.aegistudio.mpp.canvas.MapCanvasRegistry;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;

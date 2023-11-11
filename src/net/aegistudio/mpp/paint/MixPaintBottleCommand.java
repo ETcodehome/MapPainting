@@ -1,8 +1,6 @@
 package net.aegistudio.mpp.paint;
 
 import net.aegistudio.mpp.MapPainting;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 import net.aegistudio.mpp.CommandHandle;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -18,19 +16,7 @@ import java.awt.Color;
 public class MixPaintBottleCommand implements CommandHandle {
 	
     public static final String PERMISSION_NODE					= "mpp.command.mix.paint.bottle";
-	
-	public static final String ONLY_PLAYER = "onlyPlayer";
-	public String onlyPlayer;
-	public static final String NO_PIGMENT_PERMISSION = "noPermission";
-	public String noPigmentPermission;
-	public static final String INVALID_FORMAT = "invalidFormat";
-	public String invalidFormat;
-	public static final String CHARGED = "charged";
-	public String charged;
-	public static final String CANT_AFFORD = "cantAfford";
-	public String cantAfford;
-	public static final String NEED_INV = "needInv";
-	public String needInv;
+
 	public static final String GAVE_PIGMENT = "gavePigment $name";
 	public String gavePigment;
 	
@@ -39,12 +25,6 @@ public class MixPaintBottleCommand implements CommandHandle {
 	
 	public MixPaintBottleCommand() {
 		this.description = "@pigment.description";
-		this.onlyPlayer = "@pigment.onlyPlayer";
-		this.noPigmentPermission = "@pigment.noPigmentPermission";
-		this.invalidFormat = "@pigment.invalidFormat";
-		this.charged = "@pigment.charged $cost";
-		this.cantAfford = "@pigment.charged $cost";
-		this.needInv = "@pigment.needInv";
 		this.gavePigment = "@pigment.gavePigment $name";
 	}
 
@@ -54,10 +34,7 @@ public class MixPaintBottleCommand implements CommandHandle {
      */
 	@Override
 	public void load(MapPainting plugin, ConfigurationSection section) throws Exception {
-		this.onlyPlayer = plugin.getLocale(ONLY_PLAYER, this.onlyPlayer, section);
-		this.noPigmentPermission = plugin.getLocale(NO_PIGMENT_PERMISSION, this.noPigmentPermission, section);
-		this.invalidFormat = plugin.getLocale(INVALID_FORMAT, this.invalidFormat, section);
-		this.charged = plugin.getLocale(CHARGED, this.charged, section);
+		
 	}
 
 	
@@ -113,33 +90,6 @@ public class MixPaintBottleCommand implements CommandHandle {
 		if (plugin.utils.playerHasNoInventorySpace(player.getName(), sender)) {
 			return true;
 		}
-        
-        // check player can afford if economy is active
-    	Economy econ = plugin.getEconomy();    	
-    	int cost = 0;
-    	double balance = 0;
-    	
-		cost = plugin.costPaintRGB;
-
-    	// check balance
-    	if (econ != null){	
-    		balance = econ.getBalance(player);
-    		if (balance < cost) {
-    			sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-    			return true;
-    		}
-    	}
-    	
-    	// charge the player appropriately
-        if (econ != null){
-        	EconomyResponse transaction = econ.withdrawPlayer(player,  cost);
-        	if (transaction.transactionSuccess()) {
-        		sender.sendMessage(this.charged.replace("$cost", String.valueOf(cost)));
-        	} else {
-        		sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-        		return true;
-        	}
-    	}
 
         // Actually generate the item and give it to the player
 		ItemStack item = plugin.m_paintManager.getPaintBottle(mixResult);

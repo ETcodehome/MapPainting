@@ -5,9 +5,6 @@ import java.awt.Color;
 import net.aegistudio.mpp.MapPainting;
 import net.aegistudio.mpp.canvas.BufferedCanvas;
 import net.aegistudio.mpp.canvas.Canvas;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -20,10 +17,6 @@ public class NormalCreateCommand extends BaseCreateCommand {
     public String outOfRange;
     public static final String NEED_INV = "needInv";
     public String needInv;
-    public static final String CHARGED = "charged";
-    public String charged;
-    public static final String CANT_AFFORD = "cantAfford";
-    public String cantAfford;
     
 
     public NormalCreateCommand() {
@@ -32,8 +25,6 @@ public class NormalCreateCommand extends BaseCreateCommand {
         this.invalidFormat = "@create.normal.invalidFormat";
         this.outOfRange = "@create.normal.outOfRange";
         this.needInv = "@create.normal.needInv";
-        this.charged = "@create.normal.charged $cost";
-        this.cantAfford = "@create.normal.cantAfford $cost";
     }
 
     @Override
@@ -49,23 +40,6 @@ public class NormalCreateCommand extends BaseCreateCommand {
     	if (!(sender instanceof Player)) {
     		sender.sendMessage(plugin.m_commandCreateHandler.onlyPlayer);
     		return null;
-    	}
-    	Player player = (Player) sender;
-    	
-    	// check player can afford if economy is active
-    	Economy econ = plugin.getEconomy();
-    	int cost = 0;
-    	double balance = 0;
-
-    	if (econ != null){
-    		cost = plugin.costCreate;
-    		balance = econ.getBalance(player);
-    		
-    		if (balance < cost) {
-    			sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-    			return null;
-    		}
-    		
     	}
     	
     	// check if size argument is supplied
@@ -98,16 +72,6 @@ public class NormalCreateCommand extends BaseCreateCommand {
             }
         }
         
-        // ECON COST OF CREATING THE CANVAS
-        if (econ != null){
-        	EconomyResponse transaction = econ.withdrawPlayer(player,  cost);
-        	if (transaction.transactionSuccess()) {
-        		sender.sendMessage(this.charged.replace("$cost", String.valueOf(cost)));
-        	} else {
-        		sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-        	}
-    	}
-        
         // actually return the canvas to the player        
         byte canvasColor = (byte)plugin.m_canvasManager.color.getIndex(color);
         BufferedCanvas canvas = new BufferedCanvas(plugin);
@@ -127,8 +91,6 @@ public class NormalCreateCommand extends BaseCreateCommand {
         this.invalidFormat = plugin.getLocale(INVALID_FORMAT, this.invalidFormat, section);
         this.outOfRange = plugin.getLocale(OUT_OF_RANGE, this.outOfRange, section);
         this.needInv = plugin.getLocale(NEED_INV, this.needInv, section);
-        this.charged = plugin.getLocale(CHARGED, this.charged, section);
-        this.cantAfford = plugin.getLocale(CANT_AFFORD, this.cantAfford, section);
     }
 
 }

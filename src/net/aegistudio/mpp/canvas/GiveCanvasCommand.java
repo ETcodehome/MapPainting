@@ -3,8 +3,6 @@ package net.aegistudio.mpp.canvas;
 
 import net.aegistudio.mpp.ActualHandle;
 import net.aegistudio.mpp.MapPainting;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -92,35 +90,6 @@ extends ActualHandle {
         	sender.sendMessage(this.needInv);
         	return true;
         }
-        
-        // check player can afford if economy is active
-    	Economy econ = plugin.getEconomy();    	
-    	int cost = 0;
-    	double balance = 0;
-
-    	// check balance
-    	if (econ != null){
-    		
-    		cost = plugin.costClone * quantity;
-    		balance = econ.getBalance(player);
-    		
-    		if (balance < cost) {
-    			sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-    			return true;
-    		}
-    		
-    	}
-    	
-    	// charge the player appropriately
-        if (econ != null){
-        	EconomyResponse transaction = econ.withdrawPlayer(player,  cost);
-        	if (transaction.transactionSuccess()) {
-        		sender.sendMessage(this.charged.replace("$cost", String.valueOf(cost)));
-        	} else {
-        		sender.sendMessage(this.cantAfford.replace("$cost", String.valueOf(cost)));
-        		return true;
-        	}
-    	}
         
         // actually give the item
         plugin.m_canvasManager.give((Player)sender, canvas, quantity);

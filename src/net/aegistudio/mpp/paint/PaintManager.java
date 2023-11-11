@@ -62,7 +62,9 @@ public class PaintManager implements Module {
 	public String whiteFormat 	= "\u00A7f";
 	public String randomFormat 	= "\u00A7k";
 	
-	// Define names of colors
+	/** 
+	 * Map of "true" map colors to human friendly display name colors
+	 */
 	HashMap <Color, String> colorNameMap;
     
     
